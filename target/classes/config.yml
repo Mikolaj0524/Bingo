@@ -1,0 +1,50 @@
+map:
+  width: 5000
+  height: 5000
+
+messages:
+  color: "&7"
+  prefix: " &8[&6&lBingo&8] &6» &7"
+  welcome: "Welcome!"
+  not_enough_players: "Not enough players!"
+  no_perms: "You don't have enough permissions!"
+  player_died: "%player% died!"
+  game_end: "Game end!"
+  start_text: "Get BINGO!"
+  player_completed_bingo: "%player% completed bingo!"
+  someone_won: "%player% won!"
+  teleporting: "Teleporting!"
+  starting: "Starting the game!"
+  queue_join: "You have joined the queue!"
+  queue_leave: "You have left the queue!"
+  server_join: "%player% joined the game!"
+  server_leave: "%player% has left the game!"
+
+materials:
+  - DIRT
+  - STONE
+  - ENDER_PEARL
+  - SUGAR_CANE
+  - OAK_SIGN
+  - WOODEN_SHOVEL
+  - REDSTONE
+  - RAIL
+  - BRICK
+  - YELLOW_DYE
+  - STONE_SWORD
+  - IRON_SWORD
+  - WOODEN_AXE
+  - GOLDEN_HELMET
+  - CHAINMAIL_CHESTPLATE
+  - BEETROOT_SOUP
+  - RED_MUSHROOM
+  - RAIL
+  - LADDER
+  - PORKCHOP
+  - TROPICAL_FISH
+  - PAPER
+  - FEATHER
+  - STONE_HOE
+  - LADDER
+  - BLACK_DYE
+  - GREEN_DYE
