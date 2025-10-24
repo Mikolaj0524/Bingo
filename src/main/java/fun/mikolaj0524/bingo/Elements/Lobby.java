@@ -1,5 +1,6 @@
-package fun.mikolaj0524.bingo;
+package fun.mikolaj0524.bingo.Elements;
 
+import jdk.jfr.Timespan;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -8,15 +9,9 @@ import org.bukkit.block.Sign;
 import org.bukkit.block.data.type.WallSign;
 import org.bukkit.block.sign.Side;
 import org.bukkit.block.sign.SignSide;
+import org.bukkit.configuration.Configuration;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -25,34 +20,34 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-import static fun.mikolaj0524.bingo.GameLogic.*;
-import static fun.mikolaj0524.bingo.MapGenerator.buildSpawn;
-import static fun.mikolaj0524.bingo.MapGenerator.resetWorld;
-import static fun.mikolaj0524.bingo.MapManager.giveCustomMap;
-import static fun.mikolaj0524.bingo.Messages.getColor;
-import static fun.mikolaj0524.bingo.Messages.getFromConfig;
+import static fun.mikolaj0524.bingo.Bingo.getPluginInstance;
+import static fun.mikolaj0524.bingo.Elements.MapGenerator.buildSpawn;
+import static fun.mikolaj0524.bingo.Elements.Messages.getFromConfig;
 
 public class Lobby implements Listener {
-	private static HashMap<String, Location> signPositions = new HashMap<>();
+	public static HashMap<String, Location> signPositions = new HashMap<>();
 	public static boolean gameType = true;
 	public static ArrayList<Player> queue = new ArrayList<>();
-	private static Location spawnPos = new Location(Bukkit.getWorld("world"), 0, 101, 0, 90, 0);
+	public static Location spawnPos;
 
-	public static void loadSings(){
+	public static void loadLocations(){
 		World world = Bukkit.getWorld("world");
-		signPositions.put("game", new Location(world, -9, 102, 0));
-		signPositions.put("start", new Location(world, -9, 101, 0));
-		signPositions.put("type", new Location(world, -9, 103, 0));
+		Configuration cfg = getPluginInstance().getConfig();
+		spawnPos = new Location(world, cfg.getDouble("spawn.x"), cfg.getDouble("spawn.y"), cfg.getDouble("spawn.z"), cfg.getInt("spawn.yaw"), 0);
+		signPositions.put("game", new Location(world, cfg.getDouble("signs.game.x"), cfg.getDouble("signs.game.y"), cfg.getDouble("signs.game.z")));
+		signPositions.put("start", new Location(world, cfg.getDouble("signs.start.x"), cfg.getDouble("signs.start.y"), cfg.getDouble("signs.start.z")));
+		signPositions.put("type", new Location(world, cfg.getDouble("signs.type.x"), cfg.getDouble("signs.type.y"), cfg.getDouble("signs.type.z")));
 	}
 
 	public static void createSigns(){
 		World world = Bukkit.getWorld("world");
+		Configuration cfg = getPluginInstance().getConfig();
 
 		if(world != null){
 			Block block = world.getBlockAt(signPositions.get("game"));
 			block.setType(Material.OAK_WALL_SIGN);
 			WallSign wallSignData = (WallSign) block.getBlockData();
-			wallSignData.setFacing(BlockFace.EAST);
+			wallSignData.setFacing(BlockFace.valueOf(cfg.getString("signs.game.facing")));
 			block.setBlockData(wallSignData);
 			BlockState state = block.getState();
 			if (state instanceof Sign sign) {
@@ -65,7 +60,7 @@ public class Lobby implements Listener {
 			block = world.getBlockAt(signPositions.get("start"));
 			block.setType(Material.OAK_WALL_SIGN);
 			wallSignData = (WallSign) block.getBlockData();
-			wallSignData.setFacing(BlockFace.EAST);
+			wallSignData.setFacing(BlockFace.valueOf(cfg.getString("signs.start.facing")));
 			block.setBlockData(wallSignData);
 			state = block.getState();
 			if (state instanceof Sign sign) {
@@ -77,7 +72,7 @@ public class Lobby implements Listener {
 			block = world.getBlockAt(signPositions.get("type"));
 			block.setType(Material.OAK_WALL_SIGN);
 			wallSignData = (WallSign) block.getBlockData();
-			wallSignData.setFacing(BlockFace.EAST);
+			wallSignData.setFacing(BlockFace.valueOf(cfg.getString("signs.type.facing")));
 			block.setBlockData(wallSignData);
 			state = block.getState();
 			if (state instanceof Sign sign) {
@@ -93,88 +88,10 @@ public class Lobby implements Listener {
 
 	}
 
-	@EventHandler
-	public void onPlayerRightClickSign(PlayerInteractEvent event) {
-		if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_BLOCK) {
-			if (event.getClickedBlock() != null && event.getClickedBlock().getState() instanceof Sign) {
-				Sign sign = (Sign) event.getClickedBlock().getState();
-				Player player = event.getPlayer();
-
-				if (sign.getBlock().getLocation().equals(signPositions.get("type"))) {
-					if(gameType){
-						gameType = false;
-						sign.getSide(Side.FRONT).setLine(2, ChatColor.WHITE + "Line");
-					}
-					else {
-						gameType = true;
-						sign.getSide(Side.FRONT).setLine(2, ChatColor.WHITE + "Full house");
-					}
-					sign.update(true);
-					player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 0.5f, 1.0f);
-				}
-
-				if (sign.getBlock().getLocation().equals(signPositions.get("game"))) {
-					if(queue.contains(player)){
-						queue.remove(player);
-						Messages.toPlayer(player, getFromConfig("messages.queue_leave"));
-					}
-					else{
-						queue.add(player);
-						Messages.toPlayer(player, getFromConfig("messages.queue_join"));
-
-					}
-					sign.getSide(Side.FRONT).setLine(2, ChatColor.WHITE + "" + queue.size() + " / 8");
-					sign.update(true);
-					player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 0.5f, 1.0f);
-				}
-
-				if (sign.getBlock().getLocation().equals(signPositions.get("start"))) {
-					if(player.hasPermission("bingo.start")){
-						if(queue.size() >= 2){
-							Messages.toQueuePlayers(getFromConfig("messages.starting"));
-							player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 0.5f, 1.0f);
-
-							resetWorld();
-							gameStart();
-						}
-						else{
-							player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.5f, 1.0f);
-							Messages.toPlayer(player, getFromConfig("messages.not_enough_players"));
-						}
-					}
-					else{
-						Messages.toPlayer(player, getFromConfig("messages.no_perms"));
-						player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.5f, 1.0f);
-					}
-				}
-
-			}
-		}
-	}
-
 	public static void refreshGameSign(){
 		Sign sign = (Sign) Bukkit.getWorld("world").getBlockAt(signPositions.get("game")).getState();
 		sign.getSide(Side.FRONT).setLine(2, ChatColor.WHITE + "" + queue.size() + " / 8");
 		sign.update(true);
-	}
-
-	@EventHandler
-	public void onPlayerDamage(EntityDamageEvent e){
-		if(e.getEntity() instanceof Player){
-			Player player = (Player) e.getEntity();
-
-			if(player.getWorld() == Bukkit.getWorld("world") || player.getGameMode() == GameMode.ADVENTURE){
-				e.setCancelled(true);
-			}
-		}
-	}
-
-	@EventHandler
-	public void onPlayerJoin(PlayerJoinEvent event){
-		Player player = event.getPlayer();
-		PreparePlayer(player);
-		player.setGameMode(GameMode.ADVENTURE);
-		player.setSaturation(20);
 	}
 
 	public static void TeleportToSpawn(Player player){

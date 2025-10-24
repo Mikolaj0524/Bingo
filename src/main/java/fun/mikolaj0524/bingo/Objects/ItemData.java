@@ -1,4 +1,4 @@
-package fun.mikolaj0524.bingo;
+package fun.mikolaj0524.bingo.Objects;
 
 import org.bukkit.Material;
 

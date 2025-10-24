@@ -1,4 +1,4 @@
-package fun.mikolaj0524.bingo;
+package fun.mikolaj0524.bingo.Elements;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
@@ -6,9 +6,9 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import static fun.mikolaj0524.bingo.GameLogic.time;
-import static fun.mikolaj0524.bingo.Lobby.gameType;
-import static fun.mikolaj0524.bingo.Lobby.queue;
+import static fun.mikolaj0524.bingo.Elements.GameLogic.time;
+import static fun.mikolaj0524.bingo.Elements.Lobby.gameType;
+import static fun.mikolaj0524.bingo.Elements.Lobby.queue;
 
 public class PlaceholderAPIHook extends PlaceholderExpansion {
 	@Override

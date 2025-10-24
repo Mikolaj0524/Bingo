@@ -1,14 +1,14 @@
-package fun.mikolaj0524.bingo;
+package fun.mikolaj0524.bingo.Elements;
 
+import fun.mikolaj0524.bingo.Objects.Coords;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.util.BoundingBox;
 
 import java.io.File;
 import java.util.ArrayList;
 
-import static fun.mikolaj0524.bingo.Messages.getFromConfig;
+import static fun.mikolaj0524.bingo.Elements.Messages.getFromConfig;
 
 public class MapGenerator implements Listener {
 
@@ -81,18 +81,18 @@ public class MapGenerator implements Listener {
 		for(Coords spawn : spawns){
 			int x1 = spawn.getX() - 1;
 			int y1 = spawn.getY() - 1;
-			int z1 = spawn.getZ() -1;
+			int z1 = spawn.getZ() - 1;
 
 			int x2 = spawn.getX() + 1;
 			int y2 = spawn.getY() + 2;
 			int z2 = spawn.getZ() + 1;
 
-			int minX = (int) Math.min(x1, x2) - 1;
-			int minY = (int) Math.min(y1, y2) - 1;
-			int minZ = (int) Math.min(z1, z2) - 1;
-			int maxX = (int) Math.max(x1, x2) + 1;
-			int maxY = (int) Math.max(y1, y2) + 2;
-			int maxZ = (int) Math.max(z1, z2) + 1;
+			int minX = Math.min(x1, x2);
+			int minY = Math.min(y1, y2);
+			int minZ = Math.min(z1, z2);
+			int maxX = Math.max(x1, x2);
+			int maxY = Math.max(y1, y2);
+			int maxZ = Math.max(z1, z2);
 
 			for (int x = minX; x <= maxX; x++) {
 				for (int y = minY; y <= maxY; y++) {

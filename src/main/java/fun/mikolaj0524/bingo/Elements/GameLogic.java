@@ -1,24 +1,19 @@
-package fun.mikolaj0524.bingo;
+package fun.mikolaj0524.bingo.Elements;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockDamageEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 
-import static fun.mikolaj0524.bingo.Bingo.cfg;
 import static fun.mikolaj0524.bingo.Bingo.getPluginInstance;
-import static fun.mikolaj0524.bingo.Lobby.*;
-import static fun.mikolaj0524.bingo.MapGenerator.destroySpawns;
-import static fun.mikolaj0524.bingo.MapManager.giveCustomMap;
-import static fun.mikolaj0524.bingo.Messages.*;
+import static fun.mikolaj0524.bingo.Elements.Lobby.*;
+import static fun.mikolaj0524.bingo.Elements.MapGenerator.destroySpawns;
+import static fun.mikolaj0524.bingo.Elements.MapManager.giveCustomMap;
+import static fun.mikolaj0524.bingo.Elements.Messages.*;
 
 public class GameLogic implements Listener {
 	public static int time;
@@ -100,24 +95,7 @@ public class GameLogic implements Listener {
 		refreshGameSign();
 	}
 
-	@EventHandler
-	public void onPlayerDamage(EntityDamageEvent event){
-		if(event.getEntity() instanceof Player){
-			Player player = (Player) event.getEntity();
-			double finalHealth = player.getHealth() - event.getFinalDamage();
 
-			if(finalHealth <= 0){
-				inGamePlayers.remove(player);
-				PreparePlayer(player);
-				TeleportToSpawn(player);
-				Messages.toOnlinePlayers(getFromConfig("messages.player_died").replaceAll("%player%", player.getDisplayName() + getColor()));
-
-				CheckEnd();
-
-				event.setCancelled(true);
-			}
-		}
-	}
 
 
 	public static void CheckEnd(){

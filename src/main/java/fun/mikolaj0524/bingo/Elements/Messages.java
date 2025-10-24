@@ -1,12 +1,12 @@
-package fun.mikolaj0524.bingo;
+package fun.mikolaj0524.bingo.Elements;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import static fun.mikolaj0524.bingo.Bingo.cfg;
-import static fun.mikolaj0524.bingo.GameLogic.inGamePlayers;
-import static fun.mikolaj0524.bingo.Lobby.queue;
+import static fun.mikolaj0524.bingo.Elements.GameLogic.inGamePlayers;
+import static fun.mikolaj0524.bingo.Elements.Lobby.queue;
 
 public class Messages {
 
