@@ -2,20 +2,14 @@ package fun.mikolaj0524.bingo;
 
 import fun.mikolaj0524.bingo.Elements.*;
 import fun.mikolaj0524.bingo.Events.*;
-import org.bukkit.Sound;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import static fun.mikolaj0524.bingo.Elements.GameLogic.setupLogic;
 
 import static fun.mikolaj0524.bingo.Elements.Lobby.*;
-import static fun.mikolaj0524.bingo.Elements.MapGenerator.teleportNewWorld;
 import static fun.mikolaj0524.bingo.Elements.MapManager.*;
-import static fun.mikolaj0524.bingo.Elements.Messages.getFromConfig;
 
 public final class Bingo extends JavaPlugin implements Listener {
 
@@ -60,32 +54,6 @@ public final class Bingo extends JavaPlugin implements Listener {
 	@Override
 	public void onDisable() {
 		getServer().getLogger().info("Bingo > Stop!");
-	}
-
-	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		Player player = (Player) sender;
-		if(player instanceof Player){
-
-			if(command.getName().equalsIgnoreCase("bingo_tp")){
-				teleportNewWorld(player);
-				return true;
-			}
-
-			if(command.getName().equalsIgnoreCase("bingo_rlcf")){
-				if(player.isOp()){
-					reloadConfig();
-					cfg = getConfig();
-					Messages.toPlayer(player, "Successfully reloaded bingo plugin!");
-				}
-				else{
-					Messages.toPlayer(player, getFromConfig("messages.no_perms"));
-					player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.5f, 1.0f);
-				}
-				return true;
-			}
-		}
-		return false;
 	}
 
 }

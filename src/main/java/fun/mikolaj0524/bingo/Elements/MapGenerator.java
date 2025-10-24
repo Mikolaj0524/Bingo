@@ -40,24 +40,6 @@ public class MapGenerator implements Listener {
 		Bukkit.getLogger().info("World '" + worldName + "' has been reset.");
 	}
 
-
-	public static void teleportNewWorld(Player player){
-		if(player.isOp()){
-			Messages.toQueuePlayers(getFromConfig("messages.teleporting"));
-			if(player.getWorld().getName().equals("world")){
-				player.teleport(new Location(Bukkit.getWorld("bingoworld"), 0, 150, 0));
-			}
-			else{
-				player.teleport(new Location(Bukkit.getWorld("world"), 0, 150, 0));
-			}
-
-		}
-		else{
-			Messages.toPlayer(player, getFromConfig("messages.no_perms"));
-			player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 0.5f, 1.0f);
-		}
-	}
-
 	public static void buildSpawn(int x, int y, int z){
 		World world = Bukkit.getWorld("bingoworld");
 

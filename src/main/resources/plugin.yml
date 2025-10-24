@@ -5,8 +5,3 @@ api-version: '1.21'
 authors: [ Mikolaj0524 ]
 description: Bingo plugin
 website: https://mikolaj0524.fun
-commands:
-  bingo_tp:
-    description: Command for teleporting players between two worlds!
-  bingo_rlcf:
-    description: Command for reloading bingo plugin!
