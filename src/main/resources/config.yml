@@ -32,7 +32,7 @@ messages:
   not_enough_players: "Not enough players!"
   no_perms: "You don't have enough permissions!"
   player_died: "%player% died!"
-  game_end: "Game end!"
+  game_end: "Game ended!"
   start_text: "Get BINGO!"
   player_completed_bingo: "%player% completed bingo!"
   someone_won: "%player% won!"
@@ -45,29 +45,87 @@ messages:
 
 materials:
   - DIRT
+  - GRASS_BLOCK
   - STONE
-  - ENDER_PEARL
+  - COBBLESTONE
+  - ANDESITE
+  - DIORITE
+  - GRANITE
+  - SAND
+  - SANDSTONE
+  - GRAVEL
+  - CLAY_BALL
+  - BRICKS
+  - GLASS
+  - OAK_PLANKS
+  - BIRCH_PLANKS
+  - SPRUCE_PLANKS
+  - JUNGLE_PLANKS
+  - ACACIA_PLANKS
+  - DARK_OAK_PLANKS
+  - STICK
+  - TORCH
+  - CRAFTING_TABLE
+  - FURNACE
+  - BARREL
+  - LADDER
+  - BOWL
+  - BREAD
+  - WHEAT
+  - WHEAT_SEEDS
   - SUGAR_CANE
-  - OAK_SIGN
-  - WOODEN_SHOVEL
-  - REDSTONE
-  - RAIL
-  - BRICK
-  - YELLOW_DYE
-  - STONE_SWORD
-  - IRON_SWORD
-  - WOODEN_AXE
-  - GOLDEN_HELMET
-  - CHAINMAIL_CHESTPLATE
-  - BEETROOT_SOUP
-  - RED_MUSHROOM
-  - RAIL
-  - LADDER
-  - PORKCHOP
-  - TROPICAL_FISH
   - PAPER
+  - BOOK
+  - APPLE
+  - SWEET_BERRIES
+  - GLOW_BERRIES
+  - PUMPKIN
+  - PUMPKIN_SEEDS
+  - MELON_SLICE
+  - MELON_SEEDS
+  - EGG
   - FEATHER
-  - STONE_HOE
-  - LADDER
-  - BLACK_DYE
-  - GREEN_DYE
+  - LEATHER
+  - PORKCHOP
+  - BEEF
+  - CHICKEN
+  - MUTTON
+  - COD
+  - SALMON
+  - TROPICAL_FISH
+  - PUFFERFISH
+  - STRING
+  - SPIDER_EYE
+  - BONE
+  - BONE_MEAL
+  - GUNPOWDER
+  - ROTTEN_FLESH
+  - COAL
+  - CHARCOAL
+  - IRON_INGOT
+  - IRON_NUGGET
+  - GOLD_INGOT
+  - GOLD_NUGGET
+  - REDSTONE
+  - LAPIS_LAZULI
+  - DIAMOND
+  - COPPER_INGOT
+  - AMETHYST_SHARD
+  - FLINT
+  - FLINT_AND_STEEL
+  - BUCKET
+  - SHEARS
+  - COMPASS
+  - ITEM_FRAME
+  - PAINTING
+  - FLOWER_POT
+  - CAMPFIRE
+  - LANTERN
+  - CAULDRON
+  - RAIL
+  - POWERED_RAIL
+  - MINECART
+  - FISHING_ROD
+  - LEAD
+  - NAME_TAG
+  - ARMOR_STAND

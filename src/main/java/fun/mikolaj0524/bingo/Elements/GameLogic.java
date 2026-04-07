@@ -43,6 +43,9 @@ public class GameLogic implements Listener {
 						displayTitle(ChatColor.YELLOW , "2");
 					}
 					else if(time == 13){
+						displayTitle(ChatColor.DARK_GREEN , "1");
+					}
+					else if(time == 15){
 						displayTitle(ChatColor.GREEN , getFromConfig("messages.start_text"));
 						destroySpawns();
 						for(Player p : inGamePlayers){
